@@ -1,6 +1,12 @@
 # LZ1AQ Loop Controller
 
-![](screenshot.png)
+![](images/screenshot.png)
+
+![](images/controller-1.jpg)
+
+![](images/controller-2.jpg)
+
+![](images/controller-3.jpg)
 
 ## Schematic
 
