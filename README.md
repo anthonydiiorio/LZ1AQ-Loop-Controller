@@ -26,9 +26,9 @@ Coming soon (TM) 🙃
 | 5MF 300-R	| Fuse 300 mA 5mm x 20mm| 10 |
 | N/A | DC Connector of your choice | 1 |
 | N/A |Panel Mount Micro USB Extension | 1 |
-| PGSD-8 | Cable Grommet |
-| N/A | Hookup Wire | |
-| N/A | Dupont Jumpers Wires | |
+| PGSD-8 | Cable Grommet | 1 |
+| N/A | Hookup Wire | Lots |
+| N/A | Dupont Jumpers Wires | Lots |
 
 I used PC Motherboard standoffs and screws to rest the power inserter in the enclosure. It is not mounted permanently to allow easy removal of the front panel.
 
