@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Antenna Controller</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<style type="text/css">
+		body{
+			background: #000;
+			color: #fff;
+		}
+		#main{
+			padding-top: 10px;
+			margin: 0 auto;
+			width: 400px;
+		}
+	</style>
+</head>
+<body>
+	<div id="main">
+		<h3>Antenna Controller <a href="#" onClick="MyWindow=window.open('#','MyWindow','width=330,height=90'); return false;">&#128377;</a></h3>
+<!-- Buttons Generated Automatically with html += activeButton("A", "LoopA", "Loop A"); -->
+		<a class="btn btn-success" href="/LoopA">40/80M</a>
+		<a class="btn btn-dark" href="/LoopB">20/15/10 Yagi</a>
+		<a class="btn btn-dark" href="/Vertical">WARC</a>
+		<a class="btn btn-dark" href="/LoopAB">6M Quad</a>
+<!-- End Buttons -->
+	<br/><br/>
+		<h3>Loop Controller <a href="#" onClick="MyWindow=window.open('#','MyWindow','width=330,height=90'); return false;">&#128377;</a></h3>
+<!-- Buttons Generated Automatically with html += activeButton("A", "LoopA", "Loop A"); -->
+		<a class="btn btn-success" href="/LoopA">Loop A</a>
+		<a class="btn btn-dark" href="/LoopB">Loop B</a>
+		<a class="btn btn-dark" href="/LoopAB">A + B</a>
+		<a class="btn btn-dark" href="/Vertical">Vertical</a>
+<!-- End Buttons -->
+	</div>
+</body>
+</html>
