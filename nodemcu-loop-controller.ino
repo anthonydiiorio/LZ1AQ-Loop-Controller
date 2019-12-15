@@ -10,17 +10,17 @@ String activeMode = "";
 
 ESP8266WebServer server(80);
 
-#define LED1 D5 //Relay 1
-#define LED2 D6 //Relay 2
-#define LED3 D7 //Relay 3
+#define RELAY1 D5 //Relay 1
+#define RELAY2 D6 //Relay 2
+#define RELAY3 D7 //Relay 3
 
 void setup() {
   Serial.begin(115200);
   Serial.println();
   
-  pinMode(LED1, OUTPUT);
-  pinMode(LED2, OUTPUT);
-  pinMode(LED3, OUTPUT);
+  pinMode(RELAY1, OUTPUT);
+  pinMode(RELAY2, OUTPUT);
+  pinMode(RELAY3, OUTPUT);
   
   //Default Mode Loop A
   loopA();
@@ -116,37 +116,37 @@ void handleVertical() {
 }
 
 void loopA() { // 1 0 0 Active Low
-  // digitalWrite(LED1, LOW); // Normally Open
-  digitalWrite(LED1, HIGH); // NC
-  digitalWrite(LED2, HIGH);
-  digitalWrite(LED3, HIGH);
+  // digitalWrite(RELAY1, LOW); // Normally Open
+  digitalWrite(RELAY1, HIGH); // NC
+  digitalWrite(RELAY2, HIGH);
+  digitalWrite(RELAY3, HIGH);
   activeMode = "A";
   Serial.println("Loop A");
 }
 
 void loopB() { // 0 1 0 Active Low
-  // digitalWrite(LED1, HIGH); // Normally Open
-  digitalWrite(LED1, LOW); // NC
-  digitalWrite(LED2, LOW);
-  digitalWrite(LED3, HIGH);
+  // digitalWrite(RELAY1, HIGH); // Normally Open
+  digitalWrite(RELAY1, LOW); // NC
+  digitalWrite(RELAY2, LOW);
+  digitalWrite(RELAY3, HIGH);
   activeMode = "B";
   Serial.println("Loop B");
 }
 
 void loopAB() { // 1 1 0 Active Low
-  // digitalWrite(LED1, LOW); // Normally Open
-  digitalWrite(LED1, HIGH); // NC
-  digitalWrite(LED2, LOW);
-  digitalWrite(LED3, HIGH);
+  // digitalWrite(RELAY1, LOW); // Normally Open
+  digitalWrite(RELAY1, HIGH); // NC
+  digitalWrite(RELAY2, LOW);
+  digitalWrite(RELAY3, HIGH);
   activeMode = "AB";
   Serial.println("Loop AB");
 }
 
 void vertical() { // 0 0 1 Active Low
-  // digitalWrite(LED1, HIGH); // Normally Open
-  digitalWrite(LED1, LOW); // NC
-  digitalWrite(LED2, HIGH);
-  digitalWrite(LED3, LOW);
+  // digitalWrite(RELAY1, HIGH); // Normally Open
+  digitalWrite(RELAY1, LOW); // NC
+  digitalWrite(RELAY2, HIGH);
+  digitalWrite(RELAY3, LOW);
   activeMode = "V";
   Serial.println("Vertical");
 }
