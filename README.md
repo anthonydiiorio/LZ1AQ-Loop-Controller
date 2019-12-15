@@ -10,6 +10,24 @@
 
 ## Schematic
 
+## BOM
+
+| Part Number | Description | QTY |
+|---|---|---|
+| NodeMCU V2 | | 1 |
+| N/A | 4 Channel Relay Module (Active Low) | 1 |
+| RM2055M | Hammond Enclosure (50 mm x 140 mm x 190 mm) | 1 |
+| HC-6 | Adhesive PCB Supports | 8 |
+| BK/HTB-24M-R | Fuse Holder 5mm x 20mm	| 1 |
+| 5MF 300-R	| Fuse 300 mA 5mm x 20mm| 10 |
+| N/A | DC Connector of your choice | 1 |
+| N/A |Panel Mount Micro USB Extension | 1 |
+| PGSD-8 | Cable Grommet |
+| N/A | Hookup Wire | |
+| N/A | Dupont Jumpers Wires | |
+
+I used PC Motherboard standoffs and screws to rest the power inserter in the enclosure. It is not mounted permanently to allow easy removal of the front panel.
+
 ## LZ1AQ Documentation
 
 1 0 0 Loop A  
