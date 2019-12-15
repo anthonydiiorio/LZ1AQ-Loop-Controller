@@ -12,7 +12,7 @@ I wanted to build a fully remotable LZ1AQ Active Antenna controller with off the
 
 ## Schematic
 
-Coming soon (TM) 🙃
+![](images/schematic.png)
 
 ## BOM
 
