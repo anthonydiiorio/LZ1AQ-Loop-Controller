@@ -1,4 +1,6 @@
-# LZ1AQ Loop Controller
+# LZ1AQ Loop Controller 🕹️
+
+I wanted to build a fully remotable LZ1AQ Active Antenna controller with off the shelf components. It is very cheap to buy ESP8266 MCUs and multi-channel relay boards online. Why reinvent the wheel? This project can be easily adapted to control remote antenna switches and other devices that can be controlled with relays.
 
 ![](images/screenshot.png)
 
@@ -10,11 +12,13 @@
 
 ## Schematic
 
+Coming soon (TM) 🙃
+
 ## BOM
 
 | Part Number | Description | QTY |
 |---|---|---|
-| NodeMCU V2 | | 1 |
+| NodeMCU V2 | Microcontroller with ESP8266 | 1 |
 | N/A | 4 Channel Relay Module (Active Low) | 1 |
 | RM2055M | Hammond Enclosure (50 mm x 140 mm x 190 mm) | 1 |
 | HC-6 | Adhesive PCB Supports | 8 |
@@ -34,6 +38,8 @@ I used PC Motherboard standoffs and screws to rest the power inserter in the enc
 0 1 0 Loop B  
 1 1 0 A + B  
 0 0 1 Vertical  
+
+**Note: My code has pin 1 inverted so Loop A is in the Normally Closed position. This allows the loop to function in A mode with no power applied to the MCU or relay board.**
 
 ![](http://active-antenna.eu/wp-content/uploads/2014/03/digital-control-aaa-faq.jpg)
 
