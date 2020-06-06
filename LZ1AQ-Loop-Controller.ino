@@ -1,6 +1,7 @@
 #include <WiFiManager.h> // v2.0 or higher https://github.com/tzapu/WiFiManager
 #include <ESP8266mDNS.h>
 #include <ESP8266WebServer.h>
+#include <PubSubClient.h>
 
 ESP8266WebServer server(80);
 
@@ -59,6 +60,8 @@ void setup() {
 	Serial.printf("Web server started, open %s in a web browser\n", WiFi.localIP().toString().c_str());
 	
 	MDNS.addService("http", "tcp", 80);
+
+	loopA();
 }
 
 void loop() {
