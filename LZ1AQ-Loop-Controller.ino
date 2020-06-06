@@ -1,65 +1,68 @@
-#include <ESP8266WiFi.h>
+#include <WiFiManager.h> // v2.0 or higher https://github.com/tzapu/WiFiManager
 #include <ESP8266mDNS.h>
 #include <ESP8266WebServer.h>
 
-// Wifi: SSID and password
-const char* ssid = "SSID"; //Replace
-const char* password = "PASSWORD"; //Replace
+ESP8266WebServer server(80);
 
 String activeMode = "";
-
-ESP8266WebServer server(80);
 
 #define Relay1 D5 //Relay 1
 #define Relay2 D6 //Relay 2
 #define Relay3 D7 //Relay 3
 #define RelayTest 
+
 void setup() {
-  Serial.begin(115200);
-  Serial.println();
-  
-  pinMode(Relay1, OUTPUT);
-  pinMode(Relay2, OUTPUT);
-  pinMode(Relay3, OUTPUT);
-  
-  //Default Mode Loop A
-  loopA();
-  
-  WiFi.hostname("loopcontroller");
-  
-  Serial.printf("Connecting to %s ", ssid);
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, password);
+	char* wifi_hostname = "loopdev";
 
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println(" connected");
+	WiFi.hostname(wifi_hostname);
+	WiFi.mode(WIFI_STA); // explicitly set mode, esp defaults to STA+AP
 
-  if (!MDNS.begin("loopcontroller")) {
-    Serial.println("Error setting up MDNS responder!");
-    while (1) {
-      delay(1000);
-    }
-  }
-  Serial.println("mDNS responder started");
- 
-  server.on("/", handleRoot); //Main page
-  server.on("/LoopA", handleLoopA);
-  server.on("/LoopB", handleLoopB);
-  server.on("/LoopAB", handleLoopAB);
-  server.on("/Vertical", handleVertical);
-  
-  server.begin();
-  Serial.printf("Web server started, open %s in a web browser\n", WiFi.localIP().toString().c_str());
+	// put your setup code here, to run once:
+	Serial.begin(115200);
 
-  // Add service to MDNS-SD
-  MDNS.addService("http", "tcp", 80);
+	//WiFiManager, Local intialization. Once its business is done, there is no need to keep it around
+	WiFiManager wm;	
+
+	//reset settings - wipe credentials for testing
+	// wm.resetSettings();	
+
+	// Automatically connect using saved credentials,
+	// if connection fails, it starts an access point with the specified name ("AutoConnectAP"),
+	// if empty will auto generate SSID, if password is blank it will be anonymous AP (wm.autoConnect())
+	// then goes into a blocking loop awaiting configuration and will return success result	
+	bool res;
+	res = wm.autoConnect("LoopController","lz1aqconfig"); // password protected ap	
+	if(!res) {
+		Serial.println("Failed to connect");
+		// ESP.restart();
+	} 
+	else {  
+		Serial.println("Connected :)");
+	}	
+	
+	if (!MDNS.begin(wifi_hostname)) {
+		Serial.println("Error setting up MDNS responder!");
+		while (1) {
+			delay(1000);
+		}
+	} else {
+		Serial.println("mDNS responder started");	
+	}
+	
+	server.on("/", handleRoot); //Main page
+	server.on("/LoopA", handleLoopA);
+	server.on("/LoopB", handleLoopB);
+	server.on("/LoopAB", handleLoopAB);
+	server.on("/Vertical", handleVertical);
+	
+	server.begin();
+	Serial.printf("Web server started, open %s in a web browser\n", WiFi.localIP().toString().c_str());
+	
+	MDNS.addService("http", "tcp", 80);
 }
 
 void loop() {
-  server.handleClient();
+    server.handleClient();
 }
 
 void handleRoot() {
