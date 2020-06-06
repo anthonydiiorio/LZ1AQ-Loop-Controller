@@ -10,17 +10,17 @@ String activeMode = "";
 
 ESP8266WebServer server(80);
 
-#define RELAY1 D5 //Relay 1
-#define RELAY2 D6 //Relay 2
-#define RELAY3 D7 //Relay 3
-
+#define Relay1 D5 //Relay 1
+#define Relay2 D6 //Relay 2
+#define Relay3 D7 //Relay 3
+#define RelayTest 
 void setup() {
   Serial.begin(115200);
   Serial.println();
   
-  pinMode(RELAY1, OUTPUT);
-  pinMode(RELAY2, OUTPUT);
-  pinMode(RELAY3, OUTPUT);
+  pinMode(Relay1, OUTPUT);
+  pinMode(Relay2, OUTPUT);
+  pinMode(Relay3, OUTPUT);
   
   //Default Mode Loop A
   loopA();
@@ -116,37 +116,37 @@ void handleVertical() {
 }
 
 void loopA() { // 1 0 0 Active Low
-  // digitalWrite(RELAY1, LOW); // Normally Open
-  digitalWrite(RELAY1, HIGH); // NC
-  digitalWrite(RELAY2, HIGH);
-  digitalWrite(RELAY3, HIGH);
+  // digitalWrite(Relay1, LOW); // Normally Open
+  digitalWrite(Relay1, HIGH); // NC
+  digitalWrite(Relay2, HIGH);
+  digitalWrite(Relay3, HIGH);
   activeMode = "A";
   Serial.println("Loop A");
 }
 
 void loopB() { // 0 1 0 Active Low
-  // digitalWrite(RELAY1, HIGH); // Normally Open
-  digitalWrite(RELAY1, LOW); // NC
-  digitalWrite(RELAY2, LOW);
-  digitalWrite(RELAY3, HIGH);
+  // digitalWrite(Relay1, HIGH); // Normally Open
+  digitalWrite(Relay1, LOW); // NC
+  digitalWrite(Relay2, LOW);
+  digitalWrite(Relay3, HIGH);
   activeMode = "B";
   Serial.println("Loop B");
 }
 
 void loopAB() { // 1 1 0 Active Low
-  // digitalWrite(RELAY1, LOW); // Normally Open
-  digitalWrite(RELAY1, HIGH); // NC
-  digitalWrite(RELAY2, LOW);
-  digitalWrite(RELAY3, HIGH);
+  // digitalWrite(Relay1, LOW); // Normally Open
+  digitalWrite(Relay1, HIGH); // NC
+  digitalWrite(Relay2, LOW);
+  digitalWrite(Relay3, HIGH);
   activeMode = "AB";
   Serial.println("Loop AB");
 }
 
 void vertical() { // 0 0 1 Active Low
-  // digitalWrite(RELAY1, HIGH); // Normally Open
-  digitalWrite(RELAY1, LOW); // NC
-  digitalWrite(RELAY2, HIGH);
-  digitalWrite(RELAY3, LOW);
+  // digitalWrite(Relay1, HIGH); // Normally Open
+  digitalWrite(Relay1, LOW); // NC
+  digitalWrite(Relay2, HIGH);
+  digitalWrite(Relay3, LOW);
   activeMode = "V";
   Serial.println("Vertical");
 }
