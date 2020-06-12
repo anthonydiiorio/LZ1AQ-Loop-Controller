@@ -10,6 +10,17 @@ I wanted to build a fully remotable LZ1AQ Active Antenna controller with off the
 
 ![](images/controller-3.jpg)
 
+## MQTT
+
+Topics:
+
+/radio/loop 
+/radio/loop/set
+	- A
+	- B
+	- A+B
+	- Vertical
+
 ## Schematic
 
 ![](images/schematic.png)
