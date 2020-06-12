@@ -14,12 +14,12 @@ I wanted to build a fully remotable LZ1AQ Active Antenna controller with off the
 
 Topics:
 
-/radio/loop 
-/radio/loop/set
-	- A
-	- B
-	- A+B
-	- Vertical
+/radio/loop  
+/radio/loop/set  
+ - A
+ - B
+ - A+B
+ - Vertical
 
 ## Schematic
 
