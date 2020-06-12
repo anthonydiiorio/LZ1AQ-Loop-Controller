@@ -11,9 +11,9 @@ ESP8266WebServer server(80);
 
 char activeMode[10];
 
-#define Relay1 D5 //Relay 1
-#define Relay2 D6 //Relay 2
-#define Relay3 D7 //Relay 3
+#define Relay1 14 //D5 GPIO 14 Relay 1
+#define Relay2 12 //D6 GPIO 12 Relay 2
+#define Relay3 13 //D7 GPIO 13 Relay 3
 
 /*
 	Set Loop modes
@@ -123,6 +123,15 @@ void setup() {
 
 	// put your setup code here, to run once:
 	Serial.begin(115200);
+	pinMode(Relay1, OUTPUT);
+	pinMode(Relay2, OUTPUT);
+	pinMode(Relay3, OUTPUT);
+
+	// Initialize Relays
+	digitalWrite(Relay1, HIGH);
+	digitalWrite(Relay2, HIGH);
+	digitalWrite(Relay3, HIGH);
+	strcpy(activeMode, "A");
 
 	//WiFiManager, Local intialization. Once its business is done, there is no need to keep it around
 	WiFiManager wm;	
@@ -163,8 +172,6 @@ void setup() {
 	Serial.printf("Web server started, open %s in a web browser\n", WiFi.localIP().toString().c_str());
 	
 	MDNS.addService("http", "tcp", 80);
-
-	strcpy(activeMode, "A");
 }
 
 void loop() {
