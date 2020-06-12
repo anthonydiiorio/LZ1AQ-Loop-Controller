@@ -18,7 +18,7 @@ Topics:
 /radio/loop/set  
  - A
  - B
- - A+B
+ - Crossed
  - Vertical
 
 ## Schematic
