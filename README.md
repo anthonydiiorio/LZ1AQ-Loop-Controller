@@ -10,6 +10,10 @@ I wanted to build a fully remotable LZ1AQ Active Antenna controller with off the
 
 ![](images/controller-3.jpg)
 
+## Wifi Config
+
+For WiFi setup, connect to LoopController, password loopconfig
+
 ## MQTT
 
 Topics:
