@@ -14,17 +14,6 @@ I wanted to build a fully remotable LZ1AQ Active Antenna controller with off the
 
 For WiFi setup, connect to LoopController, password loopconfig
 
-## MQTT
-
-Topics:
-
-/radio/loop  
-/radio/loop/set  
- - A
- - B
- - Crossed
- - Vertical
-
 ## Schematic
 
 ![](images/schematic.png)
