@@ -14,6 +14,8 @@ I wanted to build a fully remotable LZ1AQ Active Antenna controller with off the
 
 For WiFi setup, connect to LoopController, password loopconfig
 
+I think there may be a bug with MDNS. I will have to look into this because it doesn't work on my new router. 
+
 ## Schematic
 
 ![](images/schematic.png)
