@@ -77,20 +77,20 @@ String activeButton(const char *checkMode, String href, String btnText){
 }
 
 void handleRoot() {
-  //Start page
-  String html ="<!DOCTYPE html> <html> <head> <title>LZ1AQ Controller</title> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"> <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css\" integrity=\"sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk\" crossorigin=\"anonymous\"> <style type=\"text/css\"> body{ background: #000; color: #fff; } #main{ padding-top: 10px; margin: 0 auto; width: 315px; } </style> </head> <body> <div id=\"main\"> <h3>Loop Controller <a href=\"#\" onClick=\"MyWindow=window.open('#','MyWindow','width=330,height=90'); return false;\">&#128377;</a></h3>";  
+	//Start page
+	String html ="<!DOCTYPE html> <html> <head> <title>LZ1AQ Controller</title> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"> <link rel=\"icon\" type=\"image/png\" href=\"https://i.imgur.com/nanrKpL.png\"> <link href=\"https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3\" crossorigin=\"anonymous\"> <style type=\"text/css\"> body{ background: #000; color: #fff; } #main{ padding-top: 10px; margin: 0 auto; width: 310px; } </style> </head> <body> <div id=\"main\"> <h3>Loop Controller <a href=\"#\" onClick=\"MyWindow=window.open('#','MyWindow','width=330,height=90'); return false;\">&#128377;</a></h3>";
 
-  //Mode buttons (Mode, URI, Button Text)
-  html += activeButton("A", "LoopA", "Loop A");
-  html += activeButton("B", "LoopB", "Loop B");
-  html += activeButton("Crossed", "Crossed", "A + B");
-  html += activeButton("Vertical", "Vertical", "Vertical");
+	//Mode buttons (Mode, URI, Button Text)
+	html += activeButton("A", "LoopA", "Loop A");
+	html += activeButton("B", "LoopB", "Loop B");
+	html += activeButton("Crossed", "Crossed", "A + B");
+	html += activeButton("Vertical", "Vertical", "Vertical");
 
-  //Close page
-  html +="</div> </body> </html>";
-
-  //Serve page
-  server.send(200, "text/html", html);
+	//Close page
+	html +="</div> </body> </html>";
+	
+	//Serve page
+	server.send(200, "text/html", html);
 }
 
 void handleLoopA() {
@@ -176,5 +176,5 @@ void setup() {
 
 void loop() {
 	server.handleClient();
-  MDNS.update();
+	MDNS.update();
 }
