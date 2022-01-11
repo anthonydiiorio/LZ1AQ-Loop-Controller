@@ -50,3 +50,9 @@ I used PC Motherboard standoffs and screws to rest the power inserter in the enc
 ![](http://active-antenna.eu/wp-content/uploads/2014/03/digital-control-aaa-faq.jpg)
 
 [LZ1AQ FAQ: Can the antenna switching be performed digitally?](http://active-antenna.eu/amplifier-kit/faq-aaa-1b/#antenna-swith)
+
+
+## Dependencies
+
+Board Manager:
+- [ESP8266](https://github.com/esp8266/Arduino) >v3.0.2

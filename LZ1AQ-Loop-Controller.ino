@@ -134,17 +134,17 @@ void setup() {
 	strcpy(activeMode, "A");
 
 	//WiFiManager, Local intialization. Once its business is done, there is no need to keep it around
-	WiFiManager wm;	
+	WiFiManager wifiManager;	
 
 	//reset settings - wipe credentials for testing
-	// wm.resetSettings();	
+	// wifiManager.resetSettings();	
 
 	// Automatically connect using saved credentials,
 	// if connection fails, it starts an access point with the specified name ("LoopController"),
-	// if empty will auto generate SSID, if password is blank it will be anonymous AP (wm.autoConnect())
+	// if empty will auto generate SSID, if password is blank it will be anonymous AP (wifiManager.autoConnect())
 	// then goes into a blocking loop awaiting configuration and will return success result	
 	bool res;
-	res = wm.autoConnect("LoopController","loopconfig"); // password protected ap	
+	res = wifiManager.autoConnect("LoopController","loopconfig"); // password protected ap	
 	if(!res) {
 		Serial.println("Failed to connect");
 		// ESP.restart();
@@ -176,4 +176,5 @@ void setup() {
 
 void loop() {
 	server.handleClient();
+  MDNS.update();
 }
