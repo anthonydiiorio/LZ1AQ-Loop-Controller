@@ -65,14 +65,19 @@ void vertical() { // 0 0 1 Active Low
 }
 
 //Generate button string for active and inactive modes
-String activeButton(const char *checkMode, String href, String btnText){
+String activeButton(const char *checkMode, const char *uri, const char *btnText){
   String output = "<a class=\"btn ";
 	if (strcmp(activeMode, checkMode) == 0){
     	output += "btn-success\" ";
 	} else{
 		output += "btn btn-dark\" ";
 	}
-	output +=  "href=\"/" + href + "\">" + btnText + "</a> ";
+	output +=  "href=\"/";
+	output += uri;
+	output += "\">";
+	output += btnText; 
+	output += "</a> ";
+
 	return output;
 }
 
@@ -95,26 +100,26 @@ void handleRoot() {
 
 void handleLoopA() {
   loopA();
-  server.sendHeader("Location","/");
-  server.send(303);
+  server.sendHeader("Location","/",true);
+  server.send(303, "text/plain", "");
 }
 
 void handleLoopB() {
   loopB();
-  server.sendHeader("Location","/");
-  server.send(303);
+  server.sendHeader("Location","/",true);
+  server.send(303, "text/plain", "");
 }
 
 void handlecrossed() {
   crossed();
-  server.sendHeader("Location","/");
-  server.send(303);
+  server.sendHeader("Location","/",true);
+  server.send(303, "text/plain", "");
 }
 
 void handleVertical() {
   vertical();
-  server.sendHeader("Location","/");
-  server.send(303);
+  server.sendHeader("Location","/",true);
+  server.send(303, "text/plain", "");
 }
 
 void setup() {
@@ -169,7 +174,7 @@ void setup() {
 	server.on("/Vertical", handleVertical);
 	
 	server.begin();
-	Serial.printf("Web server started, open %s in a web browser\n", WiFi.localIP().toString().c_str());
+	//Serial.printf("Web server started, open %s in a web browser\n", WiFi.localIP().toString().c_str());
 	
 	MDNS.addService("http", "tcp", 80);
 }
