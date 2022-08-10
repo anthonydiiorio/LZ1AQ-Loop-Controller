@@ -24,6 +24,8 @@ Relay 4 connects to pin D1 (GPIO 5)
 You can enable the 4th relay by setting `bool auxEnable = true;`  
 You can set the button label by changing `const char *auxLabel = "Relay 4";`
 
+For additional relays I suggest using a project like [Tasmota](https://tasmota.github.io/docs/).
+
 ## Wiring
 
 ![](images/schematic.png)
