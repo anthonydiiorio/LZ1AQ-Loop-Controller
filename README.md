@@ -12,13 +12,19 @@ I wanted to build a fully remotable LZ1AQ Active Antenna controller with off the
 
 ## Wifi Config
 
-For WiFi setup, connect to LoopController, password loopconfig
+For WiFi setup, connect to SSID **LoopController**, Password **loopconfig**
 
 ## Usage
 
 Navigate to http://loopcontroller.local/
 
-## Schematic
+### Auxiliary Relay
+
+Relay 4 connects to pin D1 (GPIO 5)  
+You can enable the 4th relay by setting `bool auxEnable = true;`  
+You can set the button lable by changing `const char *auxLabel = "Relay 4";`
+
+## Wiring
 
 ![](images/schematic.png)
 

@@ -10,10 +10,25 @@ const char *wifi_hostname = "loopcontroller";
 ESP8266WebServer server(80);
 
 char activeMode[10];
+int windowHeight = 90;
 
-#define Relay1 14 //D5 GPIO 14 Relay 1
-#define Relay2 12 //D6 GPIO 12 Relay 2
-#define Relay3 13 //D7 GPIO 13 Relay 3
+/*
+	Auxiliary Relay #4 Options
+*/
+
+bool auxEnable = false; //Enable 4th Relay in Web UI, set true or false
+const char *auxLabel = "Relay 4"; //Label for Auxiliary Relay
+
+
+/*
+	GPIO Pins to use
+	https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/
+*/
+
+#define Relay1 14 // D5 GPIO14 Relay 1
+#define Relay2 12 // D6 GPIO12 Relay 2
+#define Relay3 13 // D7 GPIO13 Relay 3
+#define Relay4 5  // D1 GPIO16 Relay 4 (AUX)
 
 /*
 	Set Loop modes
@@ -25,47 +40,51 @@ char activeMode[10];
 	1 1 0 A + B 	(LOW, LOW, HIGH)
 	0 0 1 Vertical 	(HIGH, HIGH, LOW)
 
-	Since Relay1 is set to NC we need to flip Relay1.
+	Relay1 is connected normally closed to save power, no need to energize a relay in the default state.
+	Since Relay1 is connected to Normally Closed we need to flip Relay1 (LOW becomes HIGH).
+	Relays are activated with active low.
 */
 
-void loopA() { // 1 0 0 Active Low
-	// digitalWrite(Relay1, LOW); // Normally Open
-	digitalWrite(Relay1, HIGH); // NC
+void loopA(){ // 1 0 0 Active Low
+	digitalWrite(Relay1, HIGH); // NC Flipped
 	digitalWrite(Relay2, HIGH);
 	digitalWrite(Relay3, HIGH);
 	strcpy(activeMode, "A");
-	Serial.println("Loop A");
+	//Serial.println("Loop A");
 }
 
-void loopB() { // 0 1 0 Active Low
-	// digitalWrite(Relay1, HIGH); // Normally Open
-	digitalWrite(Relay1, LOW); // NC
+void loopB(){ // 0 1 0 Active Low
+	digitalWrite(Relay1, LOW); // NC Flipped
 	digitalWrite(Relay2, LOW);
 	digitalWrite(Relay3, HIGH);
 	strcpy(activeMode, "B");
-	Serial.println("Loop B");
+	//Serial.println("Loop B");
 }
 
-void crossed() { // 1 1 0 Active Low
-	// digitalWrite(Relay1, LOW); // Normally Open
-	digitalWrite(Relay1, HIGH); // NC
+void crossed(){ // 1 1 0 Active Low
+	digitalWrite(Relay1, HIGH); // NC Flipped
 	digitalWrite(Relay2, LOW);
 	digitalWrite(Relay3, HIGH);
 	strcpy(activeMode, "Crossed");
-	Serial.println("Crossed Parallel");
+	//Serial.println("Crossed Parallel");
 }
 
-void vertical() { // 0 0 1 Active Low
-	// digitalWrite(Relay1, HIGH); // Normally Open
-	digitalWrite(Relay1, LOW); // NC
+void vertical(){ // 0 0 1 Active Low
+	digitalWrite(Relay1, LOW); // NC Flipped
 	digitalWrite(Relay2, HIGH);
 	digitalWrite(Relay3, LOW);
 	strcpy(activeMode, "Vertical");
-	Serial.println("Vertical");
+	//Serial.println("Vertical");
+}
+
+void auxToggle(){
+	//Toggle Aux Relay on/off
+	//Defaults to off, see void setup();
+	digitalWrite(Relay4, !digitalRead(Relay4));
 }
 
 //Generate button string for active and inactive modes
-String activeButton(const char *checkMode, const char *uri, const char *btnText){
+String activeButton(const char *checkMode, const char *path, const char *btnText){
   String output = "<a class=\"btn ";
 	if (strcmp(activeMode, checkMode) == 0){
     	output += "btn-success\" ";
@@ -73,7 +92,24 @@ String activeButton(const char *checkMode, const char *uri, const char *btnText)
 		output += "btn btn-dark\" ";
 	}
 	output +=  "href=\"/";
-	output += uri;
+	output += path;
+	output += "\">";
+	output += btnText; 
+	output += "</a> ";
+
+	return output;
+}
+
+//Generate button string for Aux button
+String auxButton(const char *path, const char *btnText){
+	String output = "<a class=\"btn ";
+	if (!digitalRead(Relay4)){
+		output += "btn-success\" ";
+	} else {
+		output += "btn btn-dark\" ";
+	}
+	output +=  "href=\"/";
+	output += path;
 	output += "\">";
 	output += btnText; 
 	output += "</a> ";
@@ -82,14 +118,21 @@ String activeButton(const char *checkMode, const char *uri, const char *btnText)
 }
 
 void handleRoot() {
-	//Start page
-	String html ="<!DOCTYPE html> <html> <head> <title>LZ1AQ Controller</title> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"> <link rel=\"icon\" type=\"image/png\" href=\"https://i.imgur.com/nanrKpL.png\"> <link href=\"https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3\" crossorigin=\"anonymous\"> <style type=\"text/css\"> body{ background: #000; color: #fff; } #main{ padding-top: 10px; margin: 0 auto; width: 310px; } </style> </head> <body> <div id=\"main\"> <h3>Loop Controller <a href=\"#\" onClick=\"MyWindow=window.open('#','MyWindow','width=330,height=90'); return false;\">&#128377;</a></h3>";
 
-	//Mode buttons (Mode, URI, Button Text)
-	html += activeButton("A", "LoopA", "Loop A");
-	html += activeButton("B", "LoopB", "Loop B");
-	html += activeButton("Crossed", "Crossed", "A + B");
-	html += activeButton("Vertical", "Vertical", "Vertical");
+	String html = "<!DOCTYPE html> <html> <head> <title>LZ1AQ Controller</title> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"> <link rel=\"icon\" type=\"image/png\" href=\"https://i.imgur.com/nanrKpL.png\"> <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3\" crossorigin=\"anonymous\"> <style type=\"text/css\"> body{ background: #000; color: #fff; } #main{ padding-top: 10px; margin: 0 auto; width: 310px; } </style> </head> <body> <div id=\"main\"> <h3>Loop Controller <a href=\"#\" onClick=\"Tiny=window.open('#','Tiny','width=330,height=";
+	html += windowHeight;
+	html += "'); return false;\">&#128377;</a></h3>";
+
+	//Mode buttons (Mode, Path, Button Text)
+	html += activeButton("A", "a", "Loop A");
+	html += activeButton("B", "b", "Loop B");
+	html += activeButton("Crossed", "x", "A + B");
+	html += activeButton("Vertical", "v", "Vertical");
+
+	if (auxEnable){
+		html += "<div style=\"margin-top: 5px\"></div>";
+		html += auxButton("aux", auxLabel); //(Path, Button Text)
+	}
 
 	//Close page
 	html +="</div> </body> </html>";
@@ -110,7 +153,7 @@ void handleLoopB() {
   server.send(303, "text/plain", "");
 }
 
-void handlecrossed() {
+void handleCrossed() {
   crossed();
   server.sendHeader("Location","/",true);
   server.send(303, "text/plain", "");
@@ -118,6 +161,12 @@ void handlecrossed() {
 
 void handleVertical() {
   vertical();
+  server.sendHeader("Location","/",true);
+  server.send(303, "text/plain", "");
+}
+
+void handleAux() {
+  auxToggle();
   server.sendHeader("Location","/",true);
   server.send(303, "text/plain", "");
 }
@@ -131,12 +180,19 @@ void setup() {
 	pinMode(Relay1, OUTPUT);
 	pinMode(Relay2, OUTPUT);
 	pinMode(Relay3, OUTPUT);
+	pinMode(Relay4, OUTPUT);
 
 	// Initialize Relays
 	digitalWrite(Relay1, HIGH);
 	digitalWrite(Relay2, HIGH);
 	digitalWrite(Relay3, HIGH);
+	digitalWrite(Relay4, HIGH); //Default Relay 4 to OFF, change to LOW to default ON.
 	strcpy(activeMode, "A");
+
+	// Set popout window height if aux button is enabled
+	if (auxEnable){
+		windowHeight = 135;
+	}
 
 	//WiFiManager, Local intialization. Once its business is done, there is no need to keep it around
 	WiFiManager wifiManager;	
@@ -167,11 +223,13 @@ void setup() {
 		Serial.println("mDNS responder started");	
 	}
 	
-	server.on("/", handleRoot); //Main page
-	server.on("/LoopA", handleLoopA);
-	server.on("/LoopB", handleLoopB);
-	server.on("/Crossed", handlecrossed);
-	server.on("/Vertical", handleVertical);
+	// Paths
+	server.on("/", handleRoot);
+	server.on("/a", handleLoopA);
+	server.on("/b", handleLoopB);
+	server.on("/x", handleCrossed);
+	server.on("/v", handleVertical);
+	server.on("/aux", handleAux);
 	
 	server.begin();
 	//Serial.printf("Web server started, open %s in a web browser\n", WiFi.localIP().toString().c_str());
