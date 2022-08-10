@@ -16,8 +16,9 @@ int windowHeight = 90;
 	Auxiliary Relay #4 Options
 */
 
-bool auxEnable = false; //Enable 4th Relay in Web UI, set true or false
-const char *auxLabel = "Relay 4"; //Label for Auxiliary Relay
+bool auxEnable = true; //Enable 4th Relay in Web UI, set true or false
+bool auxNC = true; //Sets visual indicator for Normally Closed
+const char *auxLabel = "Power Supply"; //Label for Auxiliary Relay
 
 
 /*
@@ -104,9 +105,17 @@ String activeButton(const char *checkMode, const char *path, const char *btnText
 String auxButton(const char *path, const char *btnText){
 	String output = "<a class=\"btn ";
 	if (!digitalRead(Relay4)){
-		output += "btn-success\" ";
-	} else {
-		output += "btn btn-dark\" ";
+		if (auxNC){ //Invert Colors if Normally Closed
+			output += "btn-dark\" ";
+		} else{
+			output += "btn-success\" ";
+		}
+	} else{
+		if (auxNC){
+			output += "btn-success\" ";
+		} else{
+			output += "btn btn-dark\" ";
+		}
 	}
 	output +=  "href=\"/";
 	output += path;

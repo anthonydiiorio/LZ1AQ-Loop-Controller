@@ -20,15 +20,20 @@ Navigate to http://loopcontroller.local/
 
 ### Auxiliary Relay
 
+![Aux relay](images/aux-relay.png)
+
 Relay 4 connects to pin D1 (GPIO 5)  
 You can enable the 4th relay by setting `bool auxEnable = true;`  
+You can invert the button color for normally closed by setting `bool auxNC = true;`  
 You can set the button label by changing `const char *auxLabel = "Relay 4";`
+
+I have mine set to power off the loop remotely wired in the normally closed position.
 
 For additional relays I suggest using a project like [Tasmota](https://tasmota.github.io/docs/).
 
 ## Wiring
 
-![](images/schematic.png)
+![Wiring Diagram](images/schematic.png)
 
 ## BOM
 
