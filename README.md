@@ -26,7 +26,7 @@ I wanted to build a fully remotable LZ1AQ Active Antenna controller with off the
    
 ## Wifi Config
 
-For WiFi setup, connect to SSID **LoopController**, Password **loopconfig**
+For WiFi setup, connect to SSID `LoopController`, the password is `loopconfig`
 
 ## Usage
 
