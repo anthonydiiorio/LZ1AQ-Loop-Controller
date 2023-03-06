@@ -62,8 +62,8 @@ For additional relays I suggest using a project like [Tasmota](https://tasmota.g
 | N/A | DC Connector of your choice | 1 |
 | N/A |Panel Mount Micro USB Extension | 1 |
 | PGSD-8 | Cable Grommet | 1 |
-| N/A | Hookup Wire | Lots |
-| N/A | Dupont Jumpers Wires | Lots |
+| N/A | Hookup Wire | |
+| N/A | Dupont Jumpers Wires | |
 
 I used PC Motherboard standoffs and screws to rest the power inserter in the enclosure. It is not mounted permanently to allow easy removal of the front panel.
 
