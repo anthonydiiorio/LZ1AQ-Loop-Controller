@@ -17,7 +17,7 @@ I wanted to build a fully remotable LZ1AQ Active Antenna controller with off the
     - Search and install `esp8266` in the Board Manager
 - Install [WiFiManager](https://github.com/tzapu/WiFiManager)
  Library 
-   - Search for WiFiManager in the Library Manager
+   - Search for `WiFiManager` in the Library Manager
 - Select Board
    - Tools > Board > esp8266 > Select your board
 - Flash Board
