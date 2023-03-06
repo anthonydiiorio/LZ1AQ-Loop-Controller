@@ -1,6 +1,6 @@
-#include <WiFiManager.h> // v2.0 or higher https://github.com/tzapu/WiFiManager
-#include <ESP8266mDNS.h>
-#include <ESP8266WebServer.h>
+#include <WiFiManager.h> // v2.0.15 or higher https://github.com/tzapu/WiFiManager
+#include <ESP8266mDNS.h> // ESP8266 https://github.com/esp8266/Arduino
+#include <ESP8266WebServer.h> // ESP8266 https://github.com/esp8266/Arduino
 
 /*
 	Setup
