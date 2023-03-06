@@ -49,11 +49,11 @@ For additional relays I suggest using a project like [Tasmota](https://tasmota.g
 
 ![Wiring Diagram](images/schematic.png)
 
-## BOM
+## Bill of Materials
 
 | Part Number | Description | QTY |
 |---|---|---|
-| NodeMCU V2 | Microcontroller with ESP8266 | 1 |
+| ESP8266 | ESP8266 Board | 1 |
 | N/A | 4 Channel Relay Module (Active Low) | 1 |
 | RM2055M | Hammond Enclosure (50 mm x 140 mm x 190 mm) | 1 |
 | HC-6 | Adhesive PCB Supports | 8 |
